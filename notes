@@ -1,0 +1,13 @@
+{
+  "country" : "United States",
+  "password" : "SecurePass123!",
+  "streetAddress" : "123 Main Street, Apt 4B",
+  "city" : "New York",
+  "name" : "John Smith",
+  "contactNumber" : "01258258236",
+  "id" : 28042,
+  "state" : "NY",
+  "userName" : "johnsmith92",
+  "email" : "john.smith@email.com",
+  "age" : 32
+}
