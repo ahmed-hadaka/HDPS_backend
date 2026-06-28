@@ -1,15 +1,25 @@
-# Use a suitable OpenJDK base image
-FROM openjdk:17-jdk-slim
+# Build stage
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the built JAR file from your target directory to the container.
-# The name of your JAR file may differ.
-COPY target/Backend-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and source code
+COPY pom.xml .
+COPY src ./src
 
-# Expose the port your app runs on
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Runtime stage
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/Backend-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose port
 EXPOSE 7860
 
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "Backend-0.0.1-SNAPSHOT.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
