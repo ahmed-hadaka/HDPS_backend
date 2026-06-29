@@ -2,6 +2,7 @@ package com.java.backend.configuration;
 
 import com.java.backend.security.CustomAuthenticationProvider;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -24,6 +25,9 @@ import java.util.Arrays;
 public class SecurityConfigurations {
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
+
+    @Value("${FRONTEND_API}")
+    private String frontendAPI;
 
     public SecurityConfigurations(CustomAuthenticationProvider customAuthenticationProvider){
         this.customAuthenticationProvider = customAuthenticationProvider;
@@ -71,8 +75,9 @@ public class SecurityConfigurations {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList(frontendAPI));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
