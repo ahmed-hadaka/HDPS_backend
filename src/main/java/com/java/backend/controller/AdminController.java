@@ -76,8 +76,6 @@ public class AdminController {
     @GetMapping("/appointments")
     public ResponseEntity<List<AppointmentListAdminViewDTO>> getAllAppointments(){
         List<AppointmentListAdminViewDTO> appointmentListAdminViewDTOS = adminService.getAllAppointment();
-        if(appointmentListAdminViewDTOS.isEmpty())
-            return ResponseEntity.noContent().build();
         return ResponseEntity.ok(appointmentListAdminViewDTOS);
     }
     
