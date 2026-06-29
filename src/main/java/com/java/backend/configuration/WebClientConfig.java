@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
     @Value("${PREDICTION_API}")
     private String predictionAPIURL;
+
     @Bean
     public WebClient predictionWebClient() {
         return WebClient.builder().baseUrl(predictionAPIURL).defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
