@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfig {
-    @Value("${PREDICTION_API}")
+    @Value("${prediction.api}")
     private String predictionAPIURL;
 
     @Bean
