@@ -27,6 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<Person> person = personRepository.findByEmail(username);
         if(person.isEmpty())
             throw new UserNotFoundException("UD: Email or Password not correct!");
+
         return User.withUsername(username)
                 .password(person.get().getPassword())
                 .roles(person.get().getRole().getName())

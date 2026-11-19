@@ -26,11 +26,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication){
         String email = authentication.getName();
-        String password = authentication.getCredentials().toString();
+        String rawPassword = authentication.getCredentials().toString();
+
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
-        if(!passwordEncoder.matches(password,userDetails.getPassword()))
+
+        if(!passwordEncoder.matches(rawPassword,userDetails.getPassword()))
             throw new BadCredentialsException("Email or Password not correct!");
-        return new UsernamePasswordAuthenticationToken(userDetails,password,userDetails.getAuthorities());// password
+
+        return new UsernamePasswordAuthenticationToken(userDetails,rawPassword,userDetails.getAuthorities());
     }
 
     @Override
